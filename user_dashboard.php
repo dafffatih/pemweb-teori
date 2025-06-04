@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $status = mysqli_real_escape_string($conn, $_POST['status']);
         
         if ($_POST['action'] === 'add') {
-            $sql = "INSERT INTO todolist (title, category, status, user_id, created_at) VALUES ('$title', '$category', '$status', '$user_id', NOW())";
+            $sql = "INSERT INTO todolist (title, category, status, user_id, created_at, updated_at) VALUES ('$title', '$category', '$status', '$user_id', NOW(), NOW())";
             if (mysqli_query($conn, $sql)) {
                 $success = "Koleksi berhasil ditambahkan!";
             } else {
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } elseif ($_POST['action'] === 'edit') {
             $id = (int)$_POST['id'];
-            $sql = "UPDATE todolist SET title='$title', category='$category', status='$status' WHERE id=$id AND user_id=$user_id";
+            $sql = "UPDATE todolist SET title='$title', category='$category', status='$status', updated_at=NOW() WHERE id=$id AND user_id=$user_id";
             if (mysqli_query($conn, $sql)) {
                 $success = "Koleksi berhasil diupdate!";
             } else {

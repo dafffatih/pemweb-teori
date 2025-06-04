@@ -1,6 +1,6 @@
 <?php
 
-$password_hash = password_hash(password:"user1", algo:PASSWORD_DEFAULT);
+$password_hash = password_hash(password:"user3", algo:PASSWORD_DEFAULT);
 
 
 
