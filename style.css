@@ -1,0 +1,771 @@
+CSS Kustom untuk ReadWatch
+
+/* Variabel warna utama */
+:root {
+  --warna-utama: #0d6efd;
+  --warna-kedua: #6c757d;
+  --warna-sukses: #198754;
+  --warna-bahaya: #dc3545;
+  --warna-peringatan: #ffc107;
+  --warna-info: #0dcaf0;
+}
+
+/* Styling dasar body */
+body {
+  background-color: #f8f9fa;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Styling brand navbar */
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* Styling kartu/card */
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.5rem;
+}
+
+/* Header kartu */
+.card-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  font-weight: 600;
+}
+
+/* Styling tombol */
+.btn {
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+/* Tombol besar */
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+}
+
+/* Styling form control */
+.form-control,
+.form-select {
+  border-radius: 0.375rem;
+  border: 1px solid #ced4da;
+}
+
+/* Form control saat fokus */
+.form-control:focus,
+.form-select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Form control besar */
+.form-control-lg,
+.form-select-lg {
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+}
+
+/* Styling tabel */
+.table th {
+  background-color: #f8f9fa;
+  border-top: none;
+  font-weight: 600;
+  color: #495057;
+}
+
+/* Efek hover pada tabel */
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+/* Badge status */
+.status-badge {
+  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+}
+
+/* Badge kategori */
+.category-badge {
+  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+}
+
+/* Styling badge umum */
+.badge {
+  font-weight: 500;
+}
+
+/* Bayangan kecil */
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+/* Bayangan sedang */
+.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Bayangan besar */
+.shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+/* Background gradasi utama */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+}
+
+/* Background gradasi sukses */
+.bg-gradient-success {
+  background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+}
+
+/* Perbaikan modal */
+.modal-content {
+  border: none;
+  border-radius: 0.75rem;
+}
+
+/* Header modal */
+.modal-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+/* Footer modal */
+.modal-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+
+/* Grup tombol kecil */
+.btn-group-sm > .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Efek hover pada kartu */
+.card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Perbaikan navbar */
+.navbar {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Tombol toggle navbar */
+.navbar-toggler {
+  border: none;
+}
+
+/* Fokus tombol toggle */
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* Styling link navbar */
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  transition: all 0.2s ease-in-out;
+  border-radius: 0.375rem;
+  margin: 0 0.25rem;
+  padding: 0.5rem 0.75rem !important;
+}
+
+/* Hover link navbar */
+.navbar-nav .nav-link:hover {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Link navbar aktif */
+.navbar-nav .nav-link.active {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+}
+
+/* Efek hover tombol logout */
+.btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  color: white !important;
+  transform: translateY(-1px);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Styling avatar pengguna */
+.navbar .rounded-circle:hover {
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  transform: scale(1.05);
+}
+
+/* Avatar halaman profil */
+.profile-avatar {
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Perbaikan responsive */
+@media (max-width: 768px) {
+  /* Tabel responsive */
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+
+  /* Tombol kecil */
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* Body kartu */
+  .card-body {
+    padding: 1rem;
+  }
+
+  /* Modal dialog */
+  .modal-dialog {
+    margin: 1rem;
+  }
+
+  /* Penyesuaian navbar mobile */
+  .navbar-brand {
+    font-size: 1.25rem;
+  }
+
+  /* Avatar mobile */
+  .navbar .rounded-circle {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* Perilaku responsive navbar */
+@media (max-width: 991.98px) {
+  /* Collapse navbar */
+  .navbar-collapse {
+    background-color: rgba(13, 110, 253, 0.95);
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Nav mobile */
+  .navbar-nav {
+    margin-bottom: 1rem;
+  }
+
+  /* Link nav mobile */
+  .navbar-nav .nav-link {
+    margin: 0.25rem 0;
+  }
+
+  /* Info pengguna mobile */
+  .navbar-collapse .d-flex {
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Spinner loading */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Styling input group */
+.input-group-text {
+  background-color: #f8f9fa;
+  border-color: #ced4da;
+}
+
+/* Perbaikan dropdown */
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+}
+
+/* Hover dropdown item */
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+/* Perbaikan halaman login/register */
+.btn-link {
+  color: var(--warna-utama);
+}
+
+/* Hover link tombol */
+.btn-link:hover {
+  color: var(--warna-utama);
+  text-decoration: underline !important;
+}
+
+/* Styling kode untuk demo akun */
+code {
+  background-color: #f8f9fa;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  color: #e83e8c;
+}
+
+/* Styling info pengguna navbar */
+.navbar .text-white {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Status fokus tombol */
+.btn:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+}
+
+/* Styling halaman tentang */
+.list-group-item {
+  border-left: none;
+  border-right: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Styling halaman profil */
+.profile-info-item {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #f8f9fa;
+  margin-bottom: 1rem;
+}
+
+/* Heading info profil */
+.profile-info-item h6 {
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+/* Paragraf info profil */
+.profile-info-item p {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+/* Efek hover brand navbar */
+.navbar-brand {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* Hover brand navbar */
+.navbar-brand:hover {
+  transform: scale(1.05);
+  color: white !important;
+}
+
+/* Efek klik profil pengguna */
+.navbar .text-white[style*="cursor: pointer"]:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  margin: -0.25rem -0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Styling khusus halaman login */
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Kartu login */
+.login-card {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Judul login */
+.login-title {
+  color: #333;
+  font-weight: 700;
+}
+
+/* Subtitle login */
+.login-subtitle {
+  color: #666;
+}
+
+/* Demo akun box */
+.demo-accounts {
+  background: rgba(13, 110, 253, 0.1);
+  border: 1px solid rgba(13, 110, 253, 0.2);
+}
+
+/* Alert kustom */
+.alert-custom {
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+/* Tambahan CSS untuk Admin Dashboard - Tambahkan ini ke style.css */
+
+/* Background gradasi khusus untuk admin dashboard */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%) !important;
+}
+
+.bg-gradient-success {
+  background: linear-gradient(135deg, #198754 0%, #146c43 100%) !important;
+}
+
+.bg-gradient-danger {
+  background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%) !important;
+}
+
+/* Efek hover untuk kartu statistik */
+.card.bg-primary:hover,
+.card.bg-danger:hover,
+.card.bg-success:hover {
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+}
+
+/* Styling khusus untuk admin badge */
+.badge.fs-6 {
+  font-size: 1rem !important;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+/* Efek hover untuk tombol daftarkan user */
+.btn-danger.btn-lg:hover {
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+  box-shadow: 0 0.5rem 1rem rgba(220, 53, 69, 0.25);
+}
+
+/* Styling untuk avatar pengguna di tabel */
+.rounded-circle {
+  transition: all 0.2s ease;
+}
+
+.rounded-circle:hover {
+  transform: scale(1.1);
+}
+
+/* Efek hover untuk baris tabel */
+.table-hover tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.05) !important;
+  transform: scale(1.01);
+  transition: all 0.2s ease;
+}
+
+/* Styling untuk modal */
+.modal-content {
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Efek fokus untuk form input */
+.form-control:focus,
+.form-select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+/* Styling untuk protected badge */
+.badge.bg-warning {
+  color: #000 !important;
+}
+
+/* Efek hover untuk tombol hapus */
+.btn-outline-danger:hover {
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+  box-shadow: 0 0.25rem 0.5rem rgba(220, 53, 69, 0.25);
+}
+
+/* Responsive untuk kartu statistik */
+@media (max-width: 768px) {
+  .fs-1 {
+    font-size: 2rem !important;
+  }
+  
+  .card-body h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .btn-lg {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Animasi loading untuk tabel */
+.table tbody tr {
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.table tbody tr:nth-child(1) { animation-delay: 0.1s; }
+.table tbody tr:nth-child(2) { animation-delay: 0.2s; }
+.table tbody tr:nth-child(3) { animation-delay: 0.3s; }
+.table tbody tr:nth-child(4) { animation-delay: 0.4s; }
+.table tbody tr:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Styling untuk navbar brand hover */
+.navbar-brand:hover {
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+}
+
+/* Efek gradient text untuk judul */
+.text-primary {
+  background: linear-gradient(135deg, #0d6efd, #0056b3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Styling untuk card welcome admin */
+.card.bg-gradient-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.card.bg-gradient-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="30" cy="30" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/><circle cx="70" cy="70" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="90" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* CSS tambahan untuk user dashboard */
+
+/* Statistik cards enhancement */
+.card.bg-success,
+.card.bg-warning,
+.card.bg-info,
+.card.bg-primary {
+  border: none;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card.bg-success:hover,
+.card.bg-warning:hover,
+.card.bg-info:hover,
+.card.bg-primary:hover {
+  transform: translateY(-5px);
+}
+
+/* Filter section styling */
+.card-header.bg-light {
+  background-color: #f8f9fa !important;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Table enhancements */
+.table th {
+  font-weight: 600;
+  color: #495057;
+  background-color: #f8f9fa;
+  padding: 1rem 0.75rem;
+}
+
+.table td {
+  padding: 1rem 0.75rem;
+  vertical-align: middle;
+}
+
+/* Badge styling untuk kategori */
+.category-badge.bg-primary { background-color: #0d6efd !important; }
+.category-badge.bg-danger { background-color: #dc3545 !important; }
+.category-badge.bg-success { background-color: #198754 !important; }
+.category-badge.bg-warning { background-color: #ffc107 !important; color: #000 !important; }
+
+/* Badge styling untuk status */
+.status-badge.bg-info { background-color: #0dcaf0 !important; }
+.status-badge.bg-warning { background-color: #ffc107 !important; }
+
+/* Input group styling */
+.input-group-text {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+  font-weight: 500;
+}
+
+/* Modal enhancements */
+.modal-content {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.modal-header.bg-success {
+  background-color: #198754 !important;
+}
+
+/* Button group enhancements */
+.btn-group-sm .btn {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+/* Empty state styling */
+.text-center.py-5 {
+  padding: 3rem 1rem !important;
+}
+
+.text-center.py-5 .fs-1 {
+  font-size: 4rem !important;
+  opacity: 0.6;
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+  .card-body .row.g-3 {
+    margin: 0;
+  }
+  
+  .card-body .row.g-3 .col-md-4 {
+    padding: 0.5rem;
+  }
+  
+  .btn-lg {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+  
+  .badge {
+    font-size: 0.75rem;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+  }
+  
+  .h2, h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Welcome card gradient enhancement */
+.bg-gradient-success {
+  background: linear-gradient(135deg, #198754 0%, #146c43 100%) !important;
+}
+
+/* Navbar user info styling */
+.navbar .badge.bg-success {
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+}
+
+/* Collection management section */
+.collection-header {
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Icon styling dalam tabel */
+.table .fs-5 {
+  font-size: 1.25rem !important;
+}
+
+/* Filter form enhancements */
+.form-label.fw-semibold {
+  font-weight: 600 !important;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+/* Action buttons styling */
+.btn-outline-success:hover {
+  background-color: #198754;
+  border-color: #198754;
+  color: white;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+/* Modal form styling */
+.modal-body .form-control-lg,
+.modal-body .form-select-lg {
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+}
+
+/* Statistics cards content alignment */
+.card-body .flex-grow-1 h5 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.card-body .flex-grow-1 h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* Opacity untuk icon di cards */
+.opacity-50 {
+  opacity: 0.5 !important;
+}
+
+/* Table hover effect enhancement */
+.table-hover tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.05);
+  transform: translateY(-1px);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Alert styling */
+.alert-dismissible {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
