@@ -75,6 +75,7 @@ $collections = mysqli_fetch_all($result, MYSQLI_ASSOC);
 // Get statistics
 $statsQuery = "SELECT 
     COUNT(*) as total,
+    SUM(CASE WHEN status = 'akan' THEN 1 ELSE 0 END) as akan,
     SUM(CASE WHEN status = 'sedang' THEN 1 ELSE 0 END) as sedang,
     SUM(CASE WHEN status = 'selesai' THEN 1 ELSE 0 END) as selesai,
     SUM(CASE WHEN category = 'Film' THEN 1 ELSE 0 END) as film,
@@ -124,7 +125,7 @@ $progress = $stats['total'] > 0 ? round(($stats['selesai'] / $stats['total']) * 
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container mt-4 mb-4">
         <!-- Alert Messages -->
         <?php if (isset($success)): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -156,7 +157,7 @@ $progress = $stats['total'] > 0 ? round(($stats['selesai'] / $stats['total']) * 
                     <div class="col-md-8">
                         <h4 class="card-title mb-2">🎬 Koleksi Pribadi Anda</h4>
                         <p class="card-text mb-0">
-                            Catat dan pantau progress film, anime, komik, dan novel yang sedang atau sudah Anda nikmati. Jangan
+                            Catat dan pantau progress film, anime, komik, dan novel yang akan, sedang atau sudah Anda nikmati. Jangan
                             sampai lupa apa yang sudah ditonton atau dibaca!
                         </p>
                     </div>
@@ -169,7 +170,7 @@ $progress = $stats['total'] > 0 ? round(($stats['selesai'] / $stats['total']) * 
 
         <!-- Statistics Cards -->
         <div class="row mb-4">
-            <div class="col-md-3 col-sm-6 mb-3">
+            <div class="col mb-3">
                 <div class="card bg-success text-white h-100">
                     <div class="card-body d-flex align-items-center">
                         <div class="flex-grow-1">
@@ -180,18 +181,29 @@ $progress = $stats['total'] > 0 ? round(($stats['selesai'] / $stats['total']) * 
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6 mb-3">
+            <div class="col mb-3">
+                <div class="card bg-danger text-white h-100">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <h5 class="card-title mb-0">Mendatang</h5>
+                            <h2 class="mb-0"><?= $stats['akan'] ?></h2>
+                        </div>
+                        <div class="fs-1 opacity-50">⏳</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-3">
                 <div class="card bg-warning text-white h-100">
                     <div class="card-body d-flex align-items-center">
                         <div class="flex-grow-1">
                             <h5 class="card-title mb-0">Sedang Berjalan</h5>
                             <h2 class="mb-0"><?= $stats['sedang'] ?></h2>
                         </div>
-                        <div class="fs-1 opacity-50">⏳</div>
+                        <div class="fs-1 opacity-50">🔄</div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6 mb-3">
+            <div class="col mb-3">
                 <div class="card bg-info text-white h-100">
                     <div class="card-body d-flex align-items-center">
                         <div class="flex-grow-1">
@@ -202,7 +214,7 @@ $progress = $stats['total'] > 0 ? round(($stats['selesai'] / $stats['total']) * 
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6 mb-3">
+            <div class="col mb-3">
                 <div class="card bg-primary text-white h-100">
                     <div class="card-body d-flex align-items-center">
                         <div class="flex-grow-1">
@@ -256,7 +268,8 @@ $progress = $stats['total'] > 0 ? round(($stats['selesai'] / $stats['total']) * 
                             <label class="form-label fw-semibold">Filter Status</label>
                             <select class="form-select" name="status">
                                 <option value="">📋 Semua Status</option>
-                                <option value="sedang" <?= $filterStatus === 'sedang' ? 'selected' : '' ?>>⏳ Sedang Berjalan</option>
+                                <option value="akan" <?= $filterStatus === 'akan' ? 'selected' : '' ?>>⏳ Mendatang</option>
+                                <option value="sedang" <?= $filterStatus === 'sedang' ? 'selected' : '' ?>>🔄 Sedang Berjalan</option>
                                 <option value="selesai" <?= $filterStatus === 'selesai' ? 'selected' : '' ?>>✅ Sudah Tamat</option>
                             </select>
                         </div>
@@ -333,8 +346,27 @@ $progress = $stats['total'] > 0 ? round(($stats['selesai'] / $stats['total']) * 
                                             </span>
                                         </td>
                                         <td class="align-middle">
-                                            <span class="badge status-badge <?= $item['status'] === 'selesai' ? 'bg-info' : 'bg-warning text-dark' ?>">
-                                                <?= $item['status'] === 'selesai' ? '✅ Tamat' : '⏳ Berjalan' ?>
+                                            <span class="badge status-badge 
+                                            <?php
+                                            if ($item['status'] === 'selesai') {
+                                                echo 'bg-info';
+                                            } elseif ($item['status'] === 'sedang') {
+                                                echo 'bg-warning text-dark';
+                                            } elseif ($item['status'] === 'akan') {
+                                                echo 'bg-danger';
+                                            }
+                                            $item['status'] === 'selesai' ? 'bg-info' : 'bg-warning text-dark'
+                                            ?>
+                                            ">
+                                                <?php
+                                                if ($item['status'] === 'selesai') {
+                                                    echo '✅ Tamat';
+                                                } elseif ($item['status'] === 'sedang') {
+                                                    echo '🔄 Berjalan';
+                                                } elseif ($item['status'] === 'akan') {
+                                                    echo '⏳ Mendatang';
+                                                }
+                                                ?>
                                             </span>
                                         </td>
                                         <td class="align-middle">
@@ -397,7 +429,8 @@ $progress = $stats['total'] > 0 ? round(($stats['selesai'] / $stats['total']) * 
                         <div class="mb-3">
                             <label class="form-label fw-semibold">📊 Status</label>
                             <select class="form-select form-select-lg" name="status" required>
-                                <option value="sedang">⏳ Sedang Berjalan</option>
+                                <option value="akan">⏳ Mendatang</option>
+                                <option value="sedang">🔄 Sedang Berjalan</option>
                                 <option value="selesai">✅ Sudah Tamat</option>
                             </select>
                         </div>
@@ -439,7 +472,8 @@ $progress = $stats['total'] > 0 ? round(($stats['selesai'] / $stats['total']) * 
                         <div class="mb-3">
                             <label class="form-label fw-semibold">📊 Status</label>
                             <select class="form-select form-select-lg" name="status" id="editStatus" required>
-                                <option value="sedang">⏳ Sedang Berjalan</option>
+                                <option value="akan">⏳ Mendatang</option>
+                                <option value="sedang">🔄 Sedang Berjalan</option>
                                 <option value="selesai">✅ Sudah Tamat</option>
                             </select>
                         </div>
