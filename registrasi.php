@@ -2,7 +2,6 @@
 session_start();
 include 'db.php';
 
-// If already logged in, redirect to dashboard
 if (isset($_SESSION['user'])) {
     if ($_SESSION['role'] == 'admin') {
         header("Location: admin_dashboard.php");
@@ -15,14 +14,12 @@ if (isset($_SESSION['user'])) {
 $error = '';
 $success = '';
 
-// Registration process
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
-    // Validation
     if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
         $error = "Semua field harus diisi!";
     } elseif ($password !== $confirm_password) {
@@ -32,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Format email tidak valid!";
     } else {
-        // Check if username already exists
         $check_username = "SELECT id FROM users WHERE username = ?";
         $stmt = mysqli_prepare($conn, $check_username);
         mysqli_stmt_bind_param($stmt, "s", $username);
@@ -42,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_num_rows($result) > 0) {
             $error = "Username sudah digunakan!";
         } else {
-            // Check if email already exists
             $check_email = "SELECT id FROM users WHERE email = ?";
             $stmt = mysqli_prepare($conn, $check_email);
             mysqli_stmt_bind_param($stmt, "s", $email);
@@ -52,10 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_num_rows($result) > 0) {
                 $error = "Email sudah digunakan!";
             } else {
-                // Hash password
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                // Insert new user
                 $insert_query = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, 'user')";
                 $stmt = mysqli_prepare($conn, $insert_query);
                 mysqli_stmt_bind_param($stmt, "sss", $username, $email, $hashed_password);
@@ -87,27 +80,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="col-md-6 col-lg-5">
                     <div class="card shadow-lg login-card">
                         <div class="card-body p-4">
-                            <!-- Header -->
                             <div class="text-center mb-4">
                                 <h2 class="card-title text-primary login-title">📚 ReadWatch</h2>
                                 <p class="text-muted login-subtitle">Daftar akun baru</p>
                             </div>
 
-                            <!-- Alert Error -->
                             <?php if ($error): ?>
                                 <div class="alert alert-danger alert-custom" role="alert">
                                     <?= htmlspecialchars($error) ?>
                                 </div>
                             <?php endif; ?>
 
-                            <!-- Alert Success -->
                             <?php if ($success): ?>
                                 <div class="alert alert-success alert-custom" role="alert">
                                     <?= htmlspecialchars($success) ?>
                                 </div>
                             <?php endif; ?>
 
-                            <!-- Form Registrasi -->
                             <form method="POST">
                                 <div class="mb-3">
                                     <label for="username" class="form-label fw-semibold">👤 Username</label>
@@ -162,7 +151,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">📝 Daftar</button>
                             </form>
 
-                            <!-- Switch to Login -->
                             <div class="text-center">
                                 <p class="mb-0">Sudah punya akun? <a href="index.php" class="btn-link text-decoration-none"><strong>Masuk di sini</strong></a></p>
                             </div>

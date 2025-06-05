@@ -2,13 +2,11 @@
 session_start();
 include 'db.php';
 
-// Cek apakah user sudah login dan merupakan admin
 if (!isset($_SESSION['user']) || $_SESSION['role'] != 'admin') {
     header("Location: index.php");
     exit;
 }
 
-// Handle form submission untuk tambah user
 if (isset($_POST['tambah_user'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -24,18 +22,15 @@ if (isset($_POST['tambah_user'])) {
     }
 }
 
-// Handle update role user
 if (isset($_POST['update_role'])) {
     $user_id = $_POST['user_id'];
     $new_role = $_POST['new_role'];
     
-    // Jangan biarkan admin mengubah role dirinya sendiri
     if ($user_id == $_SESSION['user_id']) {
         echo "<script>alert('Tidak dapat mengubah role akun sendiri!'); window.location.href='admin_dashboard.php';</script>";
         exit;
     }
     
-    // Jangan biarkan mengubah role user ID 1 (super admin)
     if ($user_id == 1) {
         echo "<script>alert('Tidak dapat mengubah role super admin!'); window.location.href='admin_dashboard.php';</script>";
         exit;
@@ -49,11 +44,9 @@ if (isset($_POST['update_role'])) {
     }
 }
 
-// Handle delete user
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
     
-    // Jangan biarkan admin menghapus dirinya sendiri
     if ($delete_id == $_SESSION['user_id']) {
         echo "<script>alert('Tidak dapat menghapus akun sendiri!'); window.location.href='admin_dashboard.php';</script>";
         exit;
@@ -67,12 +60,10 @@ if (isset($_GET['delete_id'])) {
     }
 }
 
-// Ambil statistik users
 $total_users = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM users"));
 $total_admin = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM users WHERE role = 'admin'"));
 $total_user_biasa = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM users WHERE role = 'user'"));
 
-// Ambil semua users
 $users_query = "SELECT * FROM users ORDER BY created_at DESC";
 $users_result = mysqli_query($conn, $users_query);
 ?>
@@ -83,15 +74,11 @@ $users_result = mysqli_query($conn, $users_query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - ReadWatch</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="style.css" rel="stylesheet">
-    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="#">📚 ReadWatch</a>
@@ -111,7 +98,6 @@ $users_result = mysqli_query($conn, $users_query);
     <div class="container mt-4">
         <div class="row">
             <div class="col-12">
-                <!-- Admin Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
                         <h1 class="h3 text-primary">👑 Admin Dashboard</h1>
@@ -120,7 +106,6 @@ $users_result = mysqli_query($conn, $users_query);
                     <span class="badge bg-danger fs-6 px-3 py-2">🔐 Administrator</span>
                 </div>
 
-                <!-- Admin Welcome Card -->
                 <div class="card bg-gradient-primary text-white mb-4">
                     <div class="card-body">
                         <div class="row align-items-center">
@@ -138,7 +123,6 @@ $users_result = mysqli_query($conn, $users_query);
                     </div>
                 </div>
 
-                <!-- Statistics Cards -->
                 <div class="row mb-4">
                     <div class="col-md-4 mb-3">
                         <div class="card bg-primary text-white h-100">
@@ -175,7 +159,6 @@ $users_result = mysqli_query($conn, $users_query);
                     </div>
                 </div>
 
-                <!-- Header Management -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
                         <h4 class="mb-1">👥 Manajemen Pengguna</h4>
@@ -187,7 +170,6 @@ $users_result = mysqli_query($conn, $users_query);
                     </button>
                 </div>
 
-                <!-- Users Table -->
                 <div class="card shadow-sm">
                     <div class="card-header bg-light d-flex justify-content-between align-items-center">
                         <h6 class="mb-0">👥 Daftar Pengguna (<?= $total_users ?>)</h6>
@@ -264,7 +246,6 @@ $users_result = mysqli_query($conn, $users_query);
         </div>
     </div>
 
-    <!-- Modal Tambah User -->
     <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content shadow">
@@ -306,7 +287,6 @@ $users_result = mysqli_query($conn, $users_query);
         </div>
     </div>
 
-    <!-- Modal Edit Role User -->
     <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content shadow">
@@ -343,7 +323,6 @@ $users_result = mysqli_query($conn, $users_query);
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
@@ -354,12 +333,10 @@ $users_result = mysqli_query($conn, $users_query);
         }
 
         function openEditModal(userId, username, currentRole) {
-            // Set values in the modal
             document.getElementById('edit_user_id').value = userId;
             document.getElementById('edit_username').value = username;
             document.getElementById('edit_role').value = currentRole;
             
-            // Show the modal
             const editModal = new bootstrap.Modal(document.getElementById('editRoleModal'));
             editModal.show();
         }

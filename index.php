@@ -2,7 +2,6 @@
 session_start();
 include 'db.php';
 
-// Jika sudah login, redirect ke dashboard
 if (isset($_SESSION['user'])) {
     if ($_SESSION['role'] == 'admin') {
         header("Location: admin_dashboard.php");
@@ -12,11 +11,9 @@ if (isset($_SESSION['user'])) {
     exit;
 }
 
-// Ambil pesan error dari session jika ada
 $error = isset($_SESSION['login_error']) ? $_SESSION['login_error'] : '';
 $success = isset($_SESSION['register_success']) ? $_SESSION['register_success'] : '';
 
-// Hapus pesan dari session setelah ditampilkan
 unset($_SESSION['login_error']);
 unset($_SESSION['register_success']);
 ?>
@@ -27,11 +24,8 @@ unset($_SESSION['register_success']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReadWatch - Login</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="style.css" rel="stylesheet">
-    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -41,27 +35,23 @@ unset($_SESSION['register_success']);
                 <div class="col-md-6 col-lg-5">
                     <div class="card shadow-lg login-card">
                         <div class="card-body p-4">
-                            <!-- Header -->
                             <div class="text-center mb-4">
                                 <h2 class="card-title text-primary login-title">📚 ReadWatch</h2>
                                 <p class="text-muted login-subtitle" id="loginSubtitle">Masuk ke akun Anda</p>
                             </div>
 
-                            <!-- Alert Error -->
                             <?php if ($error): ?>
                                 <div class="alert alert-danger alert-custom" role="alert">
                                     <?= htmlspecialchars($error) ?>
                                 </div>
                             <?php endif; ?>
 
-                            <!-- Alert Success -->
                             <?php if ($success): ?>
                                 <div class="alert alert-success alert-custom" role="alert">
                                     <?= htmlspecialchars($success) ?>
                                 </div>
                             <?php endif; ?>
 
-                            <!-- Form Login -->
                             <form id="loginForm" action="login.php" method="POST" style="display: block;">
                                 <div class="mb-3">
                                     <label for="loginUsername" class="form-label fw-semibold">
@@ -96,7 +86,6 @@ unset($_SESSION['register_success']);
                                 </button>
                             </form>
 
-                            <!-- Form Register -->
                             <form id="registerForm" action="registrasi.php" method="POST" style="display: none;">
                                 <div class="mb-3">
                                     <label for="registerUsername" class="form-label fw-semibold">
@@ -159,7 +148,6 @@ unset($_SESSION['register_success']);
                                 </button>
                             </form>
 
-                            <!-- Switch Login/Register -->
                             <div class="text-center">
                                 <button type="button" id="switchBtn" class="btn btn-link text-decoration-none">
                                     Belum punya akun? <strong>Daftar di sini</strong>
@@ -172,10 +160,8 @@ unset($_SESSION['register_success']);
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- JavaScript untuk Switch Login/Register -->
     <script>
         let isLogin = true;
         const loginForm = document.getElementById('loginForm');
@@ -184,18 +170,15 @@ unset($_SESSION['register_success']);
         const switchBtn = document.getElementById('switchBtn');
 
 
-        // Fungsi untuk switch antara login dan register
         function switchMode() {
             isLogin = !isLogin;
             
             if (isLogin) {
-                // Mode Login
                 loginForm.style.display = 'block';
                 registerForm.style.display = 'none';
                 loginSubtitle.textContent = 'Masuk ke akun Anda';
                 switchBtn.innerHTML = 'Belum punya akun? <strong>Daftar di sini</strong>';
             } else {
-                // Mode Register
                 loginForm.style.display = 'none';
                 registerForm.style.display = 'block';
                 loginSubtitle.textContent = 'Daftar akun baru';
@@ -203,16 +186,13 @@ unset($_SESSION['register_success']);
 
             }
             
-            // Reset form
             document.querySelectorAll('input').forEach(input => {
                 input.value = '';
             });
         }
 
-        // Event listener untuk tombol switch
         switchBtn.addEventListener('click', switchMode);
 
-        // Validasi form register
         registerForm.addEventListener('submit', function(e) {
             const password = document.getElementById('registerPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;

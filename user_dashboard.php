@@ -2,18 +2,15 @@
 session_start();
 include 'db.php';
 
-// Cek apakah user sudah login
 if (!isset($_SESSION['user']) || $_SESSION['role'] !== 'user') {
     header("Location: index.php");
     exit;
 }
 
-// Get user data from session
-$username = $_SESSION['user']; // This is the username string
-$user_id = $_SESSION['user_id']; // Use the separate user_id session variable
-$user_email = $_SESSION['email']; // Use the separate email session variable
+$username = $_SESSION['user'];
+$user_id = $_SESSION['user_id'];
+$user_email = $_SESSION['email'];
 
-// Handle form submission untuk menambah/edit koleksi
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         $title = mysqli_real_escape_string($conn, $_POST['title']);
@@ -39,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Handle delete
 if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     $sql = "DELETE FROM todolist WHERE id=$id AND user_id=$user_id";
@@ -50,12 +46,10 @@ if (isset($_GET['delete'])) {
     }
 }
 
-// Get filter parameters
 $filterCategory = isset($_GET['category']) ? $_GET['category'] : '';
 $filterStatus = isset($_GET['status']) ? $_GET['status'] : '';
 $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
 
-// Build query with filters
 $whereClause = "WHERE user_id = " . $user_id;
 if (!empty($filterCategory)) {
     $whereClause .= " AND category = '" . mysqli_real_escape_string($conn, $filterCategory) . "'";
@@ -67,12 +61,10 @@ if (!empty($searchTerm)) {
     $whereClause .= " AND title LIKE '%" . mysqli_real_escape_string($conn, $searchTerm) . "%'";
 }
 
-// Get user's collections
 $sql = "SELECT * FROM todolist $whereClause ORDER BY created_at DESC";
 $result = mysqli_query($conn, $sql);
 $collections = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-// Get statistics
 $statsQuery = "SELECT 
     COUNT(*) as total,
     SUM(CASE WHEN status = 'akan' THEN 1 ELSE 0 END) as akan,
