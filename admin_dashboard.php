@@ -24,6 +24,31 @@ if (isset($_POST['tambah_user'])) {
     }
 }
 
+// Handle update role user
+if (isset($_POST['update_role'])) {
+    $user_id = $_POST['user_id'];
+    $new_role = $_POST['new_role'];
+    
+    // Jangan biarkan admin mengubah role dirinya sendiri
+    if ($user_id == $_SESSION['user_id']) {
+        echo "<script>alert('Tidak dapat mengubah role akun sendiri!'); window.location.href='admin_dashboard.php';</script>";
+        exit;
+    }
+    
+    // Jangan biarkan mengubah role user ID 1 (super admin)
+    if ($user_id == 1) {
+        echo "<script>alert('Tidak dapat mengubah role super admin!'); window.location.href='admin_dashboard.php';</script>";
+        exit;
+    }
+    
+    $query = "UPDATE users SET role = '$new_role' WHERE id = $user_id";
+    if (mysqli_query($conn, $query)) {
+        echo "<script>alert('Role user berhasil diubah!'); window.location.href='admin_dashboard.php';</script>";
+    } else {
+        echo "<script>alert('Gagal mengubah role user!');</script>";
+    }
+}
+
 // Handle delete user
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
@@ -73,9 +98,9 @@ $users_result = mysqli_query($conn, $users_query);
             <div class="navbar-nav ms-auto">
                 <span class="navbar-text text-white me-3">
                     <?php if (isset($_SESSION['username'])): ?>
-                        Selamat datang, <?= $_SESSION['username'] ?>!
+                        Selamat datang, <?= htmlspecialchars($username) ?>!
                     <?php else: ?>
-                        Selamat datang!
+                        Selamat datang, Administrator!
                     <?php endif; ?>
                 </span>
                 <a href="logout.php" class="btn btn-outline-light">Logout</a>
@@ -214,11 +239,18 @@ $users_result = mysqli_query($conn, $users_query);
                                             <?php if ($user['id'] == 1 || $user['id'] == $_SESSION['user_id']): ?>
                                                 <span class="badge bg-warning text-dark">🔒 Protected</span>
                                             <?php else: ?>
-                                                <button class="btn btn-outline-danger btn-sm" 
-                                                        onclick="confirmDelete(<?= $user['id'] ?>, '<?= htmlspecialchars($user['username']) ?>')"
-                                                        title="Hapus user">
-                                                    🗑️ Hapus
-                                                </button>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-outline-primary btn-sm" 
+                                                            onclick="openEditModal(<?= $user['id'] ?>, '<?= htmlspecialchars($user['username']) ?>', '<?= $user['role'] ?>')"
+                                                            title="Edit role user">
+                                                        ✏️ Edit
+                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm" 
+                                                            onclick="confirmDelete(<?= $user['id'] ?>, '<?= htmlspecialchars($user['username']) ?>')"
+                                                            title="Hapus user">
+                                                        🗑️ Hapus
+                                                    </button>
+                                                </div>
                                             <?php endif; ?>
                                         </td>
                                     </tr>
@@ -274,6 +306,43 @@ $users_result = mysqli_query($conn, $users_query);
         </div>
     </div>
 
+    <!-- Modal Edit Role User -->
+    <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="editRoleModalLabel">✏️ Edit Role User</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="user_id" id="edit_user_id">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">👤 Username</label>
+                            <input type="text" id="edit_username" class="form-control form-control-lg" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">🎭 Role Baru</label>
+                            <select name="new_role" id="edit_role" class="form-select form-select-lg" required>
+                                <option value="user">👤 User Biasa</option>
+                                <option value="admin">👑 Administrator</option>
+                            </select>
+                        </div>
+                        <div class="alert alert-info">
+                            <small>
+                                <strong>Info:</strong> Mengubah role user akan memberikan atau mencabut hak akses administratif.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" name="update_role" class="btn btn-primary">💾 Update Role</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -282,6 +351,17 @@ $users_result = mysqli_query($conn, $users_query);
             if (confirm(`Yakin ingin menghapus user "${username}"?`)) {
                 window.location.href = `admin_dashboard.php?delete_id=${userId}`;
             }
+        }
+
+        function openEditModal(userId, username, currentRole) {
+            // Set values in the modal
+            document.getElementById('edit_user_id').value = userId;
+            document.getElementById('edit_username').value = username;
+            document.getElementById('edit_role').value = currentRole;
+            
+            // Show the modal
+            const editModal = new bootstrap.Modal(document.getElementById('editRoleModal'));
+            editModal.show();
         }
     </script>
 </body>
