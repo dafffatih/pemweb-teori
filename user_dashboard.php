@@ -112,13 +112,10 @@ $progress = $stats['total'] > 0 ? round(($stats['selesai'] / $stats['total']) * 
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="user_dashboard.php">Dashboard</a>
-                    </li>
+                    
                 </ul>
                 <div class="d-flex align-items-center text-white">
                     <span class="me-3">Halo, <?= htmlspecialchars($username) ?>!</span>
-                    <span class="badge bg-success me-3">👤 User</span>
                     <a href="logout.php" class="btn btn-outline-light btn-sm">Logout</a>
                 </div>
             </div>

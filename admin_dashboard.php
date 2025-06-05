@@ -75,7 +75,7 @@ $users_result = mysqli_query($conn, $users_query);
                     <?php if (isset($_SESSION['username'])): ?>
                         Selamat datang, <?= $_SESSION['username'] ?>!
                     <?php else: ?>
-                        Selamat datang, Pengguna!
+                        Selamat datang!
                     <?php endif; ?>
                 </span>
                 <a href="logout.php" class="btn btn-outline-light">Logout</a>
